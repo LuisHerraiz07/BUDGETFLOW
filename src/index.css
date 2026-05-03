@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuente base */
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
