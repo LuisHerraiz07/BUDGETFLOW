@@ -1,14 +1,11 @@
 /**
  * api/client.ts
  * Cliente de API tipado — única fuente de comunicación con el servidor.
- * Todas las funciones devuelven datos fuertemente tipados con TypeScript.
  */
 
 import type { Expense, ExpenseInput, Stats, ApiResponse } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:3001/api/v1';
-
-// ── Helper interno ───────────────────────────────────────────────
+const API_BASE = 'https://budgetflow-xi.vercel.app/api/v1';
 
 async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, {
@@ -26,8 +23,6 @@ async function apiFetch<T>(url: string, options?: RequestInit): Promise<T> {
 
   return data.data;
 }
-
-// ── Expenses ─────────────────────────────────────────────────────
 
 export async function getExpenses(): Promise<Expense[]> {
   return apiFetch<Expense[]>(`${API_BASE}/expenses`);
@@ -50,8 +45,6 @@ export async function updateExpense(id: string, changes: Partial<ExpenseInput>):
 export async function deleteExpense(id: string): Promise<void> {
   return apiFetch<void>(`${API_BASE}/expenses/${id}`, { method: 'DELETE' });
 }
-
-// ── Stats ─────────────────────────────────────────────────────────
 
 export async function getStats(): Promise<Stats> {
   return apiFetch<Stats>(`${API_BASE}/stats`);
